@@ -1,0 +1,56 @@
+{% extends "layout.jinja2" %}
+
+{% block head%}
+<!-- put styles here -->
+{% endblock head%}
+
+
+{% block content%}
+
+    {% if user %}
+    <p>You are already logged in</p>
+    {% else %}
+        <form id="login">
+            <table>
+                <tr>
+                    <td>e-mail</td>
+                    <td><input type="text" placeholder="Your e-mail" name="login" /></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" placeholder="Your secret password" name="password" /></td>
+                </tr>
+                <tr>
+                    <td><button class="btn waves-effect waves-light" type="submit"> Log in </button> </td>
+                </tr>
+            </table>
+        </form>
+        <script type="text/javascript">
+            function processLogin(e) {
+                if (e.preventDefault) e.preventDefault();
+                var data = new FormData(login);
+                fetch("rest/user/login", {method: "POST", credentials: 'same-origin', body: data}).then(function(response) {
+                    return response.json();
+                  }).then((result) => {
+                    console.log(result);
+                    if(result.result == true) {
+                        location.href = "/";
+                    } else {
+                       alert(result.message);
+                    }
+                });
+                
+                return false;
+            }
+
+
+            var form = document.getElementById('login');
+            if (form.attachEvent) {
+                form.attachEvent("submit", processLogin);
+            } else {
+                form.addEventListener("submit", processLogin);
+            }
+        </script>
+    {% endif %} 
+
+{% endblock content %}

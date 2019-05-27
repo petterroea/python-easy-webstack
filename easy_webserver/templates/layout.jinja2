@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <!--
+            No head contents
+        -->
+    {% endblock head %}
+    <meta charset="UTF-8">
+    <title>Budbua - auksjoner på nett</title>
+    <script>
+        //Fixes cookie bug
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, {});
+          });
+        if(location.href.includes("localhost")) {
+            cookie.Domain = null;
+        }
+
+    </script>
+</head>
+
+    {% if user %}
+        <h2>Hi, {{user.firstname}} </h2>
+        <script>
+            function logout() {
+                fetch("/rest/user/logout", {method: "GET", credentials: 'same-origin'}).then(function(response) {
+                    return response.json();
+                  }).then((result) => {
+                    console.log(result);
+                    if(result.result == true) {
+                        location.reload();
+                    } else {
+                        alert("Failed to log out");
+                    }
+                });
+              }
+        </script>
+        <a href="/profile">My profile</a>
+        <a href="/auction/new">New auction</a>
+        {% if user.rank > 0 %}
+            <a href="/admin">Administrator panel</a>
+        {% endif %}
+        <a href="#" onclick="logout()">Log out</a>
+    {% else %}
+        <a href="/login">Log in</a>
+        <a href="/register">Register</a>
+    {% endif %}
+
+
+
+    {% block content %}
+        <p>No content</p>
+    {% endblock content %}
+
+</div>
+
+</body>
+
+</html>

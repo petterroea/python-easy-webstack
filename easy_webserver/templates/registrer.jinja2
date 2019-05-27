@@ -1,0 +1,62 @@
+{% extends "layout.jinja2" %}
+
+{% block head%}
+<!-- put styles here -->
+{% endblock head%}
+
+
+{% block content%}
+    <form id="registerForm">
+        
+        First name:<br>
+        <input type="text" name="firstname"><br>
+
+        Last name:<br>
+        <input type="text" name="lastname"><br>
+
+        Password:<br>
+        <input type="password" name="password"><br>
+
+        Email:<br>
+        <input type="text" name="email"><br>
+
+        Gender:<br>
+            <select name = "gender">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+        Postal:<br>
+        <input type="text" name="postal">
+        <input type="submit" value="Register"><br>
+
+    </form>
+
+<script type="text/javascript">
+    function processForm(e) {
+        if (e.preventDefault) e.preventDefault();
+        var data = new FormData(registerForm);
+        fetch("rest/user/create", {method: "POST", credentials: 'same-origin', body: data}).then(function(response) {
+            return response.json();
+          }).then((result) => {
+            console.log(result);
+            if(result.result == true) {
+                location.href = "/login";
+            } else {
+               alert(result.message);
+            }
+        });
+
+        return false;
+    }
+
+
+    var form = document.getElementById('registerForm');
+    if (form.attachEvent) {
+        form.attachEvent("submit", processForm);
+    } else {
+        form.addEventListener("submit", processForm);
+    }
+</script>
+{% endblock content %}

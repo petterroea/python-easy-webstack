@@ -1,0 +1,29 @@
+version: '2'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - 6543:6543
+    links:
+      - db
+    volumes:
+      - ./docker-pyramid.ini:/srv/easy_webserver/docker-pyramid.ini
+      - ./easy_webserver:/srv/easy_webserver/easy_webserver
+      - ./alembic:/srv/easy_webserver/alembic
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: easy_webserver
+      POSTGRES_DB: easy_webserver
+  adminer:
+    links:
+      - db
+    image: adminer
+    ports:
+      - 3739:8080
