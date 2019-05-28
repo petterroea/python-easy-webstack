@@ -17,8 +17,7 @@ fileConfig(config.config_file_name)
 # target_metadata = mymodel.Base.metadata
 from easy_webserver.models import (
     Base,
-    user,
-    auction
+    user
     # TODO
 )
 

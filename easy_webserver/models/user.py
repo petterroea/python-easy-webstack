@@ -30,8 +30,6 @@ class User(Base):
     gender = Column(Text, nullable=False)
     postal = Column(Integer, nullable=False)
 
-    bids = relationship("Bid")
-
     def __init__(self, firstname: str, lastname: str,
                  password: str, email: str, gender: str, postal: int):
         self.firstname = firstname

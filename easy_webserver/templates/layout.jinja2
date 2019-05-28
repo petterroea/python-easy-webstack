@@ -37,11 +37,6 @@
                 });
               }
         </script>
-        <a href="/profile">My profile</a>
-        <a href="/auction/new">New auction</a>
-        {% if user.rank > 0 %}
-            <a href="/admin">Administrator panel</a>
-        {% endif %}
         <a href="#" onclick="logout()">Log out</a>
     {% else %}
         <a href="/login">Log in</a>
