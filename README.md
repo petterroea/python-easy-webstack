@@ -2,6 +2,12 @@
 
 Starting from scratch for each project is hassle. This is what i personally use as a starting point when creating new web projects.
 
+## Disclaimer
+
+You are yourself responsible for performing the steps neccecary to secure the code from unwanted attackers or data leakage, be it removal of the debug toolbar, or replacing the current signed cookie system. 
+
+By using this package, you agree to perform an audit on the code yourself, and to fix any possible issues before using it live
+
 ## Starting the server
 
 The server is made to run under docker. Simply run `docker-compose up` from the root directory. If you want to run specific commands against the container, use `docker-compose run web <command>`. This is useful for running tests etc. If you for some reason want to avoid docker, or if you want to port it to another containerization system, simply use `docker-compose.yml` and `Dockerfile` as documentation as to how the server is set up.
